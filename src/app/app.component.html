@@ -1,0 +1,215 @@
+<mat-toolbar>Web Associative Processor</mat-toolbar>
+<div style="padding: 30px; background: #d2d6ef; text-align: center">
+    <mat-form-field>
+        <mat-label>Operation</mat-label>
+        <mat-select [(value)]="op">
+            <mat-option *ngFor="let o of ops" value="{{o}}">
+                {{o}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="margin:10px">
+        <mat-label>Bits</mat-label>
+        <mat-select [(value)]="bits">
+            <mat-option *ngFor="let b of qtd_bits" value="{{b}}">
+                {{b}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="margin:10px">
+        <input type="number" matInput placeholder="Op quantity" [(ngModel)]="qtd_ops">
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="gen_ops()">Next</button>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center center"
+    style="background-color: navajowhite; padding: 30px; padding-bottom: 0px" *ngIf="control.next0">
+    <div>
+        <div *ngFor="let item of operands | keyvalue; let i = index" [attr.data-index]="i">
+            <div *ngIf="item.key[0] == 'A'"> 
+            <mat-form-field style="margin:10px" >
+                <input type="number" matInput placeholder="{{item.key}}" [(ngModel)]="operands[item.key]">
+            </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <div *ngFor="let item of operands | keyvalue; let i = index" [attr.data-index]="i">
+            <div  *ngIf="item.key[0] == 'B'">
+            <mat-form-field style="margin:10px">
+                <input type="number" matInput placeholder="{{item.key}}" [(ngModel)]="operands[item.key]">
+            </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div fxLayout="row" fxLayoutAlign="center center"
+    style="background-color: navajowhite; margin-bottom: 5px; padding-bottom: 25px" *ngIf="control.next0">
+    <button mat-raised-button color="primary" (click)="start()">Start</button>
+</div>
+<!-- <div fxLayout="column">asdfad</div> -->
+<div class="compare" style="margin-bottom:15px" fxLayout="column" fxLayoutAlign="space-evenly center" *ngIf="control.next1">
+    <div style="text-align:center; background-color: grey;  padding: 10px; margin:10px; color:white">
+        {{index_compare}}º Compare
+    </div>
+    <div style="text-align:center; background-color: grey;  padding: 10px; margin:10px; color:white">
+        {{pass}}º Pass
+    </div>
+<div class="lookup-table" fxLayout="column" style=" width: 300px;">
+    <div style="text-align:center; background-color: #6971ad;   color: white; padding: 10px ">
+        Lookup Table Add
+    </div>
+    <div fxLayout="row" style="text-align:center; background-color: darkgray;">
+        <div fxLayout="row" style="border-right: solid 1px; background-color: darkgray; width:98%;">
+            <div style="padding-right: 67px;
+                border-right: solid 1px;
+                margin-right: 30px;"></div>
+            <div>Compare</div>
+        </div>
+        <div style="background-color: darkgray; width:48%;">Write</div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" style="background-color: ghostwhite; padding: 5px;">
+        <div fxLayout="column" fxLayoutAlign="center center" style="border-right: solid 1px; padding-right: 12px;">
+            <div>Pass</div>
+            <div>0</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <!--<div>4</div> -->
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <div>Carry</div>
+            <div>0</div>
+            <!-- <div>0</div> -->
+            <div>0</div> 
+            <div>1</div>
+            <div>1</div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <div>A</div>
+            <div>1</div>
+            <!--  <div>0</div> -->
+            <div>1</div> 
+            <div>0</div>
+            <div>1</div>
+        </div>
+
+        <div fxLayout="column" style="border-right: solid 1px; padding-right: 30px" fxLayoutAlign="center center">
+            <div>B</div>
+            <div>1</div>
+            <!-- <div>1</div> -->
+            <div>0</div> 
+            <div>0</div>
+            <div>0</div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <div>Carry</div>
+            <div>1</div>
+            <!-- <div>0</div> -->
+            <div>0</div> 
+            <div>0</div>
+            <div>1</div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <div>B</div> <!-- Changed for better performance-->
+            <div>0</div>
+              <!-- <div>1</div> -->
+            <div>1</div> 
+            <div>1</div>
+            <div>0</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="special-regs" fxLayout="column" style="width: 550px; margin-top: 10px; margin-bottom: 10px; border-left: solid 1px black">
+    <div fxLayout="row" fxLayoutAlign="start center" style="border-top: solid 1px;  border-right: solid 1px black;">
+        <div style="width:80px; text-align: center; color: #424b8c;">Mask</div>
+        <div style="width:500px; text-align: center; ">{{trace_i.mask}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" style=" border-top: solid 1px black; border-right: solid 1px; border-bottom: solid 1px;">
+        <div style="width:80px; text-align: center; color: #424b8c;">Key</div>
+        <div style="width:500px; text-align: center; ">{{trace_i.key}}</div>
+    </div>
+</div>
+
+<div class="ap-content" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="" style="border: solid 1px black; border-bottom: solid 0px; width:550px;" *ngFor="let op of trace_i.mem; let j = index" [attr.data-index]="j">
+    <div *ngIf="j%2 == 0" style="width: 15%; text-align: center;"> A{{j/2}} </div>
+    <div *ngIf="j%2 == 0"style="width: 15%; text-align: center;"> {{op.carry}} </div>
+    <div *ngIf="j%2 == 0"style="width: 55%; text-align: center; ">{{op.data}}</div>
+    <div *ngIf="j%2 == 0 && op.tag == 0" style="width: 15%; text-align: center; ">{{op.tag}}</div>
+    <div *ngIf="j%2 == 0 && op.tag == 1" style="width: 15%; background-color:red; color:white; text-align: center; ">{{op.tag}} (Match!)</div>
+
+
+   <div *ngIf="j%2 != 0" style="width: 15%; text-align: center;"> B{{j/2 - 0.5}} </div>
+    <div *ngIf="j%2 != 0" style="width: 15%; text-align: center;"> {{op.carry}} </div>
+    <div *ngIf="j%2 != 0" style="width: 55%; text-align: center; ">{{op.data}}</div>
+    <div *ngIf="j%2 != 0 && op.tag == 0" style="width: 15%; text-align: center; ">{{op.tag}}</div>
+    <div *ngIf="j%2 != 0 && op.tag == 1" style="width: 15%; background-color:red; color:white; text-align: center; ">{{op.tag}} (Match!)</div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="" style=" border-top: solid 1px black; width:550px;">
+        <div style="text-align: center; background-color: #6971ad;   color: white; border-right: solid 1px black; width: 15%">
+            Op
+        </div>
+        <div style="text-align: center; background-color: #6971ad;   color: white; border-right: solid 1px black; width: 15%">
+            Carry
+        </div>
+        <div style="text-align: center; background-color: #6971ad;   color: white; border-right: solid 1px black; width: 54%">
+            Word
+        </div>
+        <div style="text-align: center; background-color: #6971ad;   color: white; border-right: solid 1px black; width: 15%">
+            Tag
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top:15px">
+     <button mat-raised-button color="primary" style="background-color:midnightblue !important" (click)="back_compare()">Back</button>
+     <button mat-raised-button style="background-color:orange !important; color:white" (click)="next_compare()">Next</button>
+    </div>
+</div>
+</div>
+
+<!--  
+   
+    
+    
+        
+
+        
+        
+        
+        
+        
+        <div fxLayout="column" style="text-align: center" fxLayoutAlign="center center">
+            <div>Carry</div>
+            <div>0</div>
+            <div>1</div>
+            <div>1</div>
+            <div>0</div>
+        </div>
+    <div>    
+    
+    
+    
+    
+    <p>You selected: {{op}} {{bits}}</p> 
+    {{ item.key }} - {{ item.value }}
+    <div *ngFor='let key of Object.keys(operands)'>
+        <h3>{{operands[key]}}</h3>
+    </div>       
+    <mat-form-field>
+                        <input matInput placeholder="o" [(ngModel)]="o">
+                    </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Favorite food" value="Sushi">
+        </mat-form-field>
+-->
