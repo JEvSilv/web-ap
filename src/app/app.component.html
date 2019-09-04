@@ -25,8 +25,7 @@
     <button mat-raised-button color="primary" (click)="gen_ops()">Next</button>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="center center"
-    style="background-color: navajowhite; padding: 30px; padding-bottom: 0px" *ngIf="control.next0">
+<div fxLayout="row" fxLayoutAlign="center center" style="background-color: navajowhite; padding: 30px; padding-bottom: 0px">
     <div>
         <div *ngFor="let item of operands | keyvalue; let i = index" [attr.data-index]="i">
             <div *ngIf="item.key[0] == 'A'"> 
@@ -52,7 +51,8 @@
 
 </div>
 <div fxLayout="row" fxLayoutAlign="center center"
-    style="background-color: navajowhite; margin-bottom: 5px; padding-bottom: 25px" *ngIf="control.next0">
+    style="background-color: navajowhite; margin-bottom: 5px; padding-bottom: 25px">
+    <!---  *ngIf="control['next0']" *ngIf="control['next0']"-->
     <button mat-raised-button color="primary" (click)="start()">Start</button>
 </div>
 <!-- <div fxLayout="column">asdfad</div> -->

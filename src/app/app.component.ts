@@ -40,15 +40,24 @@ export class AppComponent {
   op:string = undefined;
   bits:string = undefined;
   qtd_ops: number  = undefined;
-  operands:object = {};
-  control:object = { next0:false, next1:false };
+  operands:any;
+  //control:object = { next0:false, next1:false};
+  control:any;
   trace:Array<object> = [];
-  trace_i:object = {key:"", mask:""};
+  //trace_i:object = {key:null, mask:null};
+  trace_i:any;
   index_compare:number = 1; 
   pass:number = 0;
   constructor(sim_service: SimulatorService) { 
       for(let i:number = 0; i < 32; i++) 
           this.qtd_bits.push((i+1).toString());
+      this.control = {};
+      this.trace_i = {};
+      this.control["next0"] = false;
+      this.control["next1"] = false;
+      this.trace_i["key"] = null;
+      this.trace_i["mask"] = null;
+      this.operands = {};
   }
 
 
