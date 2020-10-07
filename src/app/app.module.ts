@@ -14,11 +14,17 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { DialogOverviewDetailed } from './dialog-detailed';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+		DialogOverviewDetailed
   ],
   imports: [
     BrowserModule,
@@ -32,9 +38,12 @@ import { MatSortModule } from '@angular/material/sort';
     MatToolbarModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+		MatIconModule
   ],
   providers: [],
+  entryComponents: [DialogOverviewDetailed],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

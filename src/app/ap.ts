@@ -172,8 +172,8 @@ export class Simulator {
         });
 
         this.trace.push({
-            mask:this.ap.mask_Cr.toString() + " " + this.num_to_bin(this.ap.mask_A) + " " + this.num_to_bin(this.ap.mask_B),
-            key:this.ap.key_Cr.toString() + " " + this.num_to_bin(this.ap.key_A) + " " + this.num_to_bin(this.ap.key_B),
+            "mask":this.ap.mask_Cr.toString() + " " + this.num_to_bin(this.ap.mask_A) + " " + this.num_to_bin(this.ap.mask_B),
+            "key":this.ap.key_Cr.toString() + " " + this.num_to_bin(this.ap.key_A) + " " + this.num_to_bin(this.ap.key_B),
                     mem:mem_bin
             });
     }

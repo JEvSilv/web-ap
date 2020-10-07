@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>About</h2>
+<div mat-dialog-content>
+<h3>
+	Associative Processing
+</h3>
+<p>
+It is the way of an Associative Processor (AP) performs parallel operations. Utilizing sequences of comparisons and writings based on Lookup Table, which represents the table truth of the operation, the AP executes arithmetic and logical operations between vectors in parallel spending constant number of cycles.
+</p>
+<p>
+Associative Processor is composed by:
+</p>
+<ul>
+    <li>Content Addressable Memory (CAM): Associative Memory in which the data will be stored.</li>
+    <li>Lookup Table (LUT): Table containing the values of the bits that will be comparedand written, resulting in the operation.</li>
+    <li>Key: Register designed to select the columns that the processor will compare.
+    <li>Mask: Register used to represent the bits of theLUTthat are used for comparison.</li>
+    <li>Tag: A bit  that  represents  theMatchstate.   This  state  indicates  that  theLUTcomparison bits, represented by theKey, are the same as those of the operators. </li>
+</ul>
+<div style="text-align: center;">
+    <img src="../assets/diagram.jpg" style="padding:20px" alt="AP Diagram">
+</div>
+<h3>
+Developer
+</h3>
+<p>
+Jonathas Silveira: Master Degree Student at University of Campinas - Institute of Computing - Computer Systems Lab
+</p>
+<p>
+Contact: jonathas.silveira@students.ic.unicamp.br
+</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
+

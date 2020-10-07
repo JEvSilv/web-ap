@@ -1,31 +1,8 @@
 import { Component } from '@angular/core';
 import { SimulatorService } from './simulator.service'
 import { Simulator } from './ap';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
-export class TableBasicExample {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-}
+import { MatDialog } from '@angular/material/dialog';
+import { DialogOverviewDetailed } from './dialog-detailed';
 
 @Component({
   selector: 'app-root',
@@ -40,24 +17,19 @@ export class AppComponent {
   op:string = undefined;
   bits:string = undefined;
   qtd_ops: number  = undefined;
-  operands:any;
-  //control:object = { next0:false, next1:false};
-  control:any;
+  operands = {};
+  control:object = { "next0": false, "next1": false };
   trace:Array<object> = [];
-  //trace_i:object = {key:null, mask:null};
-  trace_i:any;
+  trace_i:object = {};
   index_compare:number = 1; 
-  pass:number = 0;
-  constructor(sim_service: SimulatorService) { 
+
+  constructor(sim_service: SimulatorService, public dialog: MatDialog) { 
       for(let i:number = 0; i < 32; i++) 
           this.qtd_bits.push((i+1).toString());
-      this.control = {};
-      this.trace_i = {};
-      this.control["next0"] = false;
-      this.control["next1"] = false;
-      this.trace_i["key"] = null;
-      this.trace_i["mask"] = null;
-      this.operands = {};
+  }
+
+  openDialog() {
+    this.dialog.open(DialogOverviewDetailed)
   }
 
 
@@ -81,16 +53,11 @@ export class AppComponent {
     }
     return false;
   }
-
-  calc_pass() {
-       this.pass = (this.index_compare-1) %4;
-  }
-
+  
    start() {
     this.trace = [];
     this.index_compare = 1;
     this.control["next1"]  = false;
-    this.calc_pass();
     let sim = new Simulator(this.operands, +this.bits, +this.qtd_ops);
     
     switch(this.op){
@@ -111,7 +78,6 @@ export class AppComponent {
     if(this.trace.length > 0) {
         if(this.trace.length > this.index_compare) {
             this.index_compare++;
-            this.calc_pass();           
             this.trace_i = this.trace[this.index_compare-1]
         }
     }
@@ -122,9 +88,10 @@ export class AppComponent {
      if(this.trace.length > 0) {
          if(this.index_compare > 1) {
             this.index_compare--;
-            this.calc_pass();
             this.trace_i = this.trace[this.index_compare-1]
         }
     }  
   }
 }
+
+
