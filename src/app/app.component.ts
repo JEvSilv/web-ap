@@ -3,6 +3,7 @@ import { SimulatorService } from './simulator.service'
 import { Simulator } from './ap';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewDetailed } from './dialog-detailed';
+import { DialogOverviewDetailedRV } from './dialog-detailed-rv';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,11 @@ export class AppComponent {
           this.qtd_bits.push((i+1).toString());
   }
 
-  openDialog() {
+  openDialogRV() {
+    this.dialog.open(DialogOverviewDetailedRV)
+  }
+
+  openDialogAbout() {
     this.dialog.open(DialogOverviewDetailed)
   }
 

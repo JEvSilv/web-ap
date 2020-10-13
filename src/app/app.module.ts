@@ -17,6 +17,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogOverviewDetailed } from './dialog-detailed';
+import { DialogOverviewDetailedRV } from './dialog-detailed-rv';
 
 
 
@@ -24,7 +25,8 @@ import { DialogOverviewDetailed } from './dialog-detailed';
   declarations: [
     AppComponent,
     HomeComponent,
-		DialogOverviewDetailed
+    DialogOverviewDetailed,
+		DialogOverviewDetailedRV
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { DialogOverviewDetailed } from './dialog-detailed';
 		MatIconModule
   ],
   providers: [],
-  entryComponents: [DialogOverviewDetailed],
+  entryComponents: [DialogOverviewDetailed, DialogOverviewDetailedRV],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
